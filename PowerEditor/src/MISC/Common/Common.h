@@ -16,6 +16,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <string_view>
 #include <sstream>
 #include <windows.h>
 #include <iso646.h>
@@ -230,3 +231,11 @@ bool endsWith(const generic_string& s, const generic_string& suffix);
 int nbDigitsFromNbLines(size_t nbLines);
 
 generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SYSTEMTIME& st);
+
+#ifdef  UNICODE
+typedef std::wstring_view	generic_string_view;
+#else
+typedef std::string_view	generic_string_view;
+#endif
+
+std::vector<generic_string_view> SplitStr(generic_string_view str, generic_string_view delims);

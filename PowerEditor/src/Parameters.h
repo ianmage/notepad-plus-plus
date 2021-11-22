@@ -1096,10 +1096,12 @@ struct FindHistory final
 	int _nbMaxFindHistoryFilter  = 10;
 	int _nbMaxFindHistoryFind    = 10;
 	int _nbMaxFindHistoryReplace = 10;
+	int _nbMaxFindHistoryExcludeDir = 10;
 
 	std::vector<generic_string> _findHistoryPaths;
 	std::vector<generic_string> _findHistoryFilters;
 	std::vector<generic_string> _findHistoryFinds;
+	std::vector<generic_string> _findHistoryExcludeDirs;
 	std::vector<generic_string> _findHistoryReplaces;
 
 	bool _isMatchWord = false;

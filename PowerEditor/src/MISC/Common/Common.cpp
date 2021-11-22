@@ -13,6 +13,9 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#define _SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING 
+
 #include <algorithm>
 #include <stdexcept>
 #include <shlwapi.h>
@@ -1302,7 +1305,7 @@ void trim(generic_string& str)
 
 bool endsWith(const generic_string& s, const generic_string& suffix)
 {
-#if defined(_MSVC_LANG) && (_MSVC_LANG > 201402L)
+#if defined(_MSVC_LANG) && (_MSVC_LANG > 201704L)
 #error Replace this function with basic_string::ends_with
 #endif
 	size_t pos = s.find(suffix);
@@ -1434,4 +1437,21 @@ generic_string getDateTimeStrFrom(const generic_string& dateTimeFormat, const SY
 	}
 
 	return {};
+}
+
+
+std::vector<generic_string_view> SplitStr(generic_string_view str, generic_string_view delims)
+{
+	std::vector<generic_string_view> output;
+
+	for (auto first = str.data(), second = str.data(), last = first + str.size();
+		 second != last && first != last;
+		 first = second + 1) {
+
+		second = std::find_first_of(first, last, std::cbegin(delims), std::cend(delims));
+		if (first != second)
+			output.emplace_back(first, second - first);
+	}
+
+	return output;
 }

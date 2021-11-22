@@ -1468,6 +1468,10 @@ void Notepad_plus::removeDuplicateLines()
 void Notepad_plus::getMatchedFileNames(const TCHAR *dir, const vector<generic_string> & patterns, vector<generic_string> & fileNames, bool isRecursive, bool isInHiddenDir)
 {
 	generic_string dirFilter(dir);
+
+	if (_findReplaceDlg.CheckExcludePatterns(dirFilter))
+		return;
+
 	dirFilter += TEXT("*.*");
 	WIN32_FIND_DATA foundData;
 
